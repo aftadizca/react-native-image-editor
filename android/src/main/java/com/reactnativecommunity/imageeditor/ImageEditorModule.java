@@ -254,9 +254,9 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
       // }
       byte[] decodedValue = Base64.getDecoder().decode(mUri);
       stream = new ByteArrayInputStream(decodedValue);
-      if (stream == null) {
-        throw new IOException("Cannot open bitmap: " + mUri);
-      }
+      // if (stream == null) {
+      //   throw new IOException("Cannot open bitmap: " + mUri);
+      // }
       return stream;
     }
 
