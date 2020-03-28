@@ -62,7 +62,7 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
           ContentResolver.SCHEME_ANDROID_RESOURCE
   );
 
-  private static final String TEMP_FILE_PREFIX = "";
+  private static final String TEMP_FILE_PREFIX = "images";
 
   /** Compress quality of the output file. */
   private static final int COMPRESS_QUALITY = 90;
