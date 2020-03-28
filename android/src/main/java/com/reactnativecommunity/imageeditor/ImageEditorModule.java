@@ -15,14 +15,12 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Base64;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
