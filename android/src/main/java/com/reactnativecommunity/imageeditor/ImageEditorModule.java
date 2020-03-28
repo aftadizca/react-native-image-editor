@@ -64,7 +64,7 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
           ContentResolver.SCHEME_ANDROID_RESOURCE
   );
 
-  private static final String TEMP_FILE_PREFIX = "ReactNative_cropped_image_";
+  private static final String TEMP_FILE_PREFIX = "";
 
   /** Compress quality of the output file. */
   private static final int COMPRESS_QUALITY = 90;
@@ -246,14 +246,12 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
     private InputStream openBitmapInputStream() throws IOException {
       InputStream stream;
 
-      // if (isLocalUri(mUri)) {
-      //   stream = mContext.getContentResolver().openInputStream(Uri.parse(mUri));
-      // } else {
-      //   URLConnection connection = new URL(mUri).openConnection();
-      //   stream = connection.getInputStream();
-      // }
-      byte[] decodedValue = Base64.getDecoder().decode(mUri);
-      stream = new ByteArrayInputStream(decodedValue);
+      if (isLocalUri(mUri)) {
+        stream = mContext.getContentResolver().openInputStream(Uri.parse(mUri));
+      } else {
+        URLConnection connection = new URL(mUri).openConnection();
+        stream = connection.getInputStream();
+      }
       if (stream == null) {
         throw new IOException("Cannot open bitmap: " + mUri);
       }
@@ -283,9 +281,9 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
         File tempFile = createTempFile(mContext, mimeType);
         writeCompressedBitmapToFile(cropped, mimeType, tempFile);
 
-        // if (mimeType.equals("image/jpeg")) {
-        //   copyExif(mContext, Uri.parse(mUri), tempFile);
-        // }
+        if (mimeType.equals("image/jpeg")) {
+          copyExif(mContext, Uri.parse(mUri), tempFile);
+        }
 
         mPromise.resolve(Uri.fromFile(tempFile).toString());
       } catch (Exception e) {
