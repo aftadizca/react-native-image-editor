@@ -254,9 +254,9 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
       // }
       byte[] decodedValue = Base64.getDecoder().decode(mUri);
       stream = new ByteArrayInputStream(decodedValue);
-      // if (stream == null) {
-      //   throw new IOException("Cannot open bitmap: " + mUri);
-      // }
+      if (stream == null) {
+        throw new IOException("Cannot open bitmap: " + mUri);
+      }
       return stream;
     }
 
@@ -283,9 +283,9 @@ public class ImageEditorModule extends ReactContextBaseJavaModule {
         File tempFile = createTempFile(mContext, mimeType);
         writeCompressedBitmapToFile(cropped, mimeType, tempFile);
 
-        if (mimeType.equals("image/jpeg")) {
-          copyExif(mContext, Uri.parse(mUri), tempFile);
-        }
+        // if (mimeType.equals("image/jpeg")) {
+        //   copyExif(mContext, Uri.parse(mUri), tempFile);
+        // }
 
         mPromise.resolve(Uri.fromFile(tempFile).toString());
       } catch (Exception e) {
